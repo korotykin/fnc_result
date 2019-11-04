@@ -66,13 +66,13 @@ public:
         { if (mIsSuccess) { throw std::logic_error{"FncResult: Asking for error when succeed"};} return *mError; }
 private:
     bool mIsSuccess;
-    std::shared_ptr<T> mValue;
-    std::shared_ptr<EC> mError;
+    std::unique_ptr<T> mValue;
+    std::unique_ptr<EC> mError;
 public:
     FncResult() = delete;
-    FncResult(const FncResult<T, EC>& rhv) = default;
+    FncResult(const FncResult<T, EC>& rhv) = delete;
     FncResult(FncResult<T, EC>&& rhv) = default;
-    FncResult& operator=(const FncResult<T, EC>& rhv) = default;
+    FncResult& operator=(const FncResult<T, EC>& rhv) = delete;
     FncResult& operator=(FncResult<T, EC>&& rhv) = default;
 };
 
@@ -93,12 +93,12 @@ public:
         { if (mIsSuccess) { throw std::logic_error{"FncResult: Asking for error when succeed"};} return *mError; }
 private:
     bool mIsSuccess;
-    std::shared_ptr<EC> mError;
+    std::unique_ptr<EC> mError;
 public:
     FncResult() = delete;
-    FncResult(const FncResult<void, EC>& rhv) = default;
+    FncResult(const FncResult<void, EC>& rhv) = delete;
     FncResult(FncResult<void, EC>&& rhv) = default;
-    FncResult& operator=(const FncResult<void, EC>& rhv) = default;
+    FncResult& operator=(const FncResult<void, EC>& rhv) = delete;
     FncResult& operator=(FncResult<void, EC>&& rhv) = default;
 };
 
@@ -119,12 +119,12 @@ public:
         { if (!mIsSuccess) { throw std::logic_error{"FncResult: Asking for value when error ocured"};} return *mValue; }
 private:
     bool mIsSuccess;
-    std::shared_ptr<T> mValue;
+    std::unique_ptr<T> mValue;
 public:
     FncResult() = delete;
-    FncResult(const FncResult<T, void>& rhv) = default;
+    FncResult(const FncResult<T, void>& rhv) = delete;
     FncResult(FncResult<T, void>&& rhv) = default;
-    FncResult& operator=(const FncResult<T, void>& rhv) = default;
+    FncResult& operator=(const FncResult<T, void>& rhv) = delete;
     FncResult& operator=(FncResult<T, void>&& rhv) = default;
 };
 
