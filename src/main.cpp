@@ -20,8 +20,15 @@ TEST_CASE("FncResult", "fnc_result")
   CHECK(1 == FncResult<std::string, int>{Fail(1)}.Error());
   CHECK_THROWS_AS((FncResult<std::string, int>{Fail(1)}).Value(), std::logic_error);
 
-  const int i = 9; // disallow moving
-  CHECK(9 == FncResult<std::string, int>{Fail(i)}.Error());
+  {
+    const int i = 9; // disallow moving
+    CHECK(9 == FncResult<std::string, int>{Fail(i)}.Error());
+  }
+
+  {
+    int i = 10; // disallow moving
+    CHECK(10 == FncResult<std::string, int>{Fail(i)}.Error());
+  }
 
   CHECK(2 == FncResult<int, int>{Success(2)}.Value());
   CHECK_THROWS_AS((FncResult<int, int>{Success(2)}).Error(), std::logic_error);

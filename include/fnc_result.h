@@ -28,18 +28,18 @@ class FailT<void>
 };
 
 template<typename T, typename std::enable_if<!std::is_void<T>::value, int>::type = 0>
-SuccessT<T> Success(const T& val) { return SuccessT<T>{val}; }
+SuccessT<typename std::decay<T>::type> Success(const T& val) { return SuccessT<typename std::decay<T>::type>{val}; }
 
 template<typename T, typename std::enable_if<!std::is_void<T>::value, int>::type = 0>
-SuccessT<T> Success(T&& val) { return SuccessT<T>{std::forward<T>(val)}; }
+SuccessT<typename std::decay<T>::type> Success(T&& val) { return SuccessT<typename std::decay<T>::type>{std::forward<T>(val)}; }
 
 SuccessT<void> Success() {return SuccessT<void>();}
 
 template<typename EC, typename std::enable_if<!std::is_void<EC>::value, int>::type = 0>
-FailT<EC> Fail(const EC& err) { return FailT<EC>{err}; }
+FailT<typename std::decay<EC>::type> Fail(const EC& err) { return FailT<typename std::decay<EC>::type>{err}; }
 
 template<typename EC, typename std::enable_if<!std::is_void<EC>::value, int>::type = 0>
-FailT<EC> Fail(EC&& err) { return FailT<EC>{std::forward<EC>(err)}; }
+FailT<typename std::decay<EC>::type> Fail(EC&& err) { return FailT<typename std::decay<EC>::type>{std::forward<EC>(err)}; }
 
 FailT<void> Fail() {return FailT<void>();}
 
